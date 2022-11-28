@@ -2,6 +2,10 @@ const inquirer = require('inquirer');
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
+const generateHtml = require("./src/generatehtml");
+const path = require("path");
+const fs = require("fs");
+
 const team = [];
 
 const mainMenu = () => {
@@ -13,24 +17,27 @@ const mainMenu = () => {
     }).then(answer => {
         if(answer.type === "Manager"){
             inquirer.prompt(managerQuestion).then(answers => {
-                console.log(answers);
+                const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
+                team.push(manager)
                 mainMenu()
             })
         }
         if(answer.type === "Engineer"){
             inquirer.prompt(engineerQuestions).then(answers => {
-                console.log(answers);
+                const engineer = new Engineer(answers.name, answers.id, answers.email, answers.gitHub)
+                team.push(engineer)
                 mainMenu()
             })
         }
         if(answer.type === "Intern"){
             inquirer.prompt(internQuestions).then(answers => {
-                console.log(answers);
+                const intern = new Intern(answers.name, answers.id, answers.email, answers.school)
+                team.push(intern)
                 mainMenu()
             })
         }
         if(answer.type ==="Done"){
-            process.exit()
+            fs.writeFileSync(path.join(__dirname,"/dist/","index.html"),generateHtml(team))
         }
     })
 }
@@ -55,7 +62,7 @@ const managerQuestion = [
     },
     {
         type: "input",
-        name: "OfficeNumber",
+        name: "officeNumber",
         message: "Enter Managers Office Number:"
     },
 ]

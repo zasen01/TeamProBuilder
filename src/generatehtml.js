@@ -16,8 +16,8 @@ function buildEngineerCard(engineer){
     return `
     <div class="card" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title">${engineer.getName()}</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <h5 class="card-title bg-danger">${engineer.getName()}</h5>
+      <p class="card-text"> ${engineer.getId()} </br>${engineer.getEmail()} </br> ${engineer.getgitHub()}</p>
     </div>
     </div>
     
@@ -65,6 +65,9 @@ function createTemplate(team) {
     <title>Team Builder</title>
 </head>
 <body>
+    <header class="w-auto p-3 h-25 d-inline-block">
+    My Team
+    </header>
     <main>
        ${insertCards(team)} 
     </main>

@@ -1,51 +1,76 @@
-function buildManagerCard(manager){
+function buildManagerCard(manager) {
     return `
+    <div class="col-6">
+    <div class="p-3">
     <div class="card" style="width: 18rem;">
-    <div class ="card-header bg-success ">Manager:</div>
+    <div class ="card-header bg-success "> <h5 class="card-title">${manager.getName()}</br>${manager.getRoll()} </h5></div>
     <div class="card-body">
-      <h5 class="card-title">${manager.getName()}</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+     
+      <p class="card-text"> ID: ${manager.getId()} 
+      </br> Email: ${manager.getEmail()} 
+      </br>Office Number: ${manager.getOfficeNumber()}</p>
+      </div>
+    </div>
+    </div>
     </div>
     </div>
     
     `
-    
+
 }
 //Engineer Card
-function buildEngineerCard(engineer){
+function buildEngineerCard(engineer) {
     return `
+    <div class="col-6">
+    <div class="p-3">
     <div class="card" style="width: 18rem;">
+    <div class ="card-header bg-danger ">
+    <h5 class="card-title">${engineer.getName()}</br>${engineer.getRoll()}</h5>
+    </div>
     <div class="card-body">
-      <h5 class="card-title bg-danger">${engineer.getName()}</h5>
-      <p class="card-text"> ${engineer.getId()} </br>${engineer.getEmail()} </br> ${engineer.getgitHub()}</p>
+      <p class="card-text"> ID: ${engineer.getId()} 
+      </br> Email: ${engineer.getEmail()} 
+      </br>GitHub ${engineer.getgitHub()}</p>
+      </div>
+    </div>
+    </div>
+    </div>
+    <div>
+    
+    `
+
+}
+
+function buildInternCard(intern) {
+    return `
+    <div class="col-6">
+    <div class="p-3">
+    <div class="card" style="width: 18rem;">
+    <div class ="card-header bg-info "> 
+    <h5 class="card-title">${intern.getName()}</br>${intern.getRoll()}</h5>
+    </div>
+    <div class="card-body">
+      <p class="card-text"> ID: ${intern.getId()} 
+      </br> Email: ${intern.getEmail()} 
+      </br>GitHub ${intern.getSchool()}</p>
+      </div>
+    </div>
+    </div>
     </div>
     </div>
     
     `
-    
-}
 
-function buildInternCard(intern){
-    return `
-    <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">${intern.getName()}</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    </div>
-    </div>
-    
-    `
-    
 }
 
 
 
-function insertCards(team){
+function insertCards(team) {
     console.log(team);
     const htmlArray = [];
-    htmlArray.push(team.filter(employee => employee.getRoll()==="Manager").map(manager => buildManagerCard(manager)).join(""))
-    htmlArray.push(team.filter(employee => employee.getRoll()==="Engineer").map(engineer => buildEngineerCard(engineer)).join(""))
-    htmlArray.push(team.filter(employee => employee.getRoll()==="Intern").map(intern => buildInternCard(intern)).join(""))
+    htmlArray.push(team.filter(employee => employee.getRoll() === "Manager").map(manager => buildManagerCard(manager)).join(""))
+    htmlArray.push(team.filter(employee => employee.getRoll() === "Engineer").map(engineer => buildEngineerCard(engineer)).join(""))
+    htmlArray.push(team.filter(employee => employee.getRoll() === "Intern").map(intern => buildInternCard(intern)).join(""))
 
 
     return htmlArray.join("");
@@ -65,11 +90,17 @@ function createTemplate(team) {
     <title>Team Builder</title>
 </head>
 <body>
-    <header class="w-auto p-3 h-25 d-inline-block">
-    My Team
+    <header class="text-center p-3 h-25 bg-info text-light">
+   <h5> My Team</h5>
     </header>
     <main>
+    <div class="container overflow-hidden">
+    <div class="row gy-5">
+    <div class="d-grid gap-4">
        ${insertCards(team)} 
+    </div>
+    </div>
+    </div>
     </main>
     
 </body>
